@@ -1,0 +1,4 @@
+﻿1>------ Build started: Project: SparseMatrix, Configuration: Debug Win32 ------
+1>main.cpp
+1>SparseMatrix.vcxproj -> C:\Users\mikew\source\repos\SparseMatrix\Debug\SparseMatrix.exe
+========== Build: 1 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========
