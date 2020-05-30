@@ -53,31 +53,7 @@ template <typename NumericType>
 SparseMatrix<NumericType>::~SparseMatrix()
 {
 	cleanup(this);
-	/*HeaderNode<NumericType>* prevHeader = mRows,* currHeader = mRows;
-	MatrixNode<NumericType>* prevMat,* currMat;
-
-	while (currHeader != nullptr)
-		//loop to delete all matrix nodes and the row headers
-	{
-		prevMat = currMat = currHeader->mNode;
-		while (currMat != nullptr)
-		{
-			currMat = currMat->mRight;
-			delete prevMat;
-			prevMat = currMat;
-		}
-		currHeader = currHeader->mNext;
-		delete prevHeader;
-		prevHeader = currHeader;
-	}
-	prevHeader = currHeader = mCols;
-	while (currHeader != nullptr)
-		//loop to delete the column headers
-	{
-		currHeader = currHeader->mNext;
-		delete prevHeader;
-		prevHeader = currHeader;
-	}*/
+	
 }
 
 template <typename NumericType>
@@ -236,62 +212,6 @@ void SparseMatrix<NumericType>::insert(int row, int col, NumericType value)
 			rowProbe->mRight = currMat;			//reassign rowProbe's right pointer to point to inserted node
 		}
 	}
-
-
-
-	/*if (mCols == nullptr)	//no non-zero values (insert first non-zero node)
-	{
-		mCols = new HeaderNode<NumericType>(col, nullptr, nullptr);
-		mRows = new HeaderNode<NumericType>(row, nullptr, nullptr);
-		mCols->mNode = new MatrixNode < NumericType(value, row, col, nullptr, nullptr, nullptr, nullptr);
-		mRows->mNode = mCols->mNode;
-	}
-
-	curr = mCols->mNode;
-	prev = mCols;
-
-	while (curr != nullptr && curr->mIndex < col)
-	//loop to advance through the headers until finding the desired column or the spot where the column should be
-	{
-		prev = curr;
-		curr = curr->mNext;
-	}
-
-	MatrixNode<NumericType>* currMat, prevMat;
-
-	if (curr == nullptr || curr->mIndex > col)	//no column exists for the desired column or need to add column
-												//between header nodes
-	{
-		prev->mNext = new HeaderNode<NumericType>(col, curr, nullptr);
-
-		//add matrix node to new HeaderNode as the first node in the column - left and right pointers may change
-		currMat = prev->mNext->mNode = new MatrixNode<NumericType>(value, row, col, nullptr, nullptr, nullptr, nullptr);
-
-	}
-	else										//curr->mIndex == col - found correct column
-	{
-		prevMat = curr->mNode;
-		currMat = prevMat->mDown;
-
-		if (row < prevMat->mRow)		//insert as first node
-		{
-			currMat = curr->mNode = new MatrixNode(value, row, col, nullptr, curr->mNode, nullptr, nullptr);
-		}
-		else
-		{
-			while (currMat != nullptr && currMat->mRow < row)
-			{
-				prevMat = currMat;
-				currMat = currMat->mDown;
-			}
-			currMat = prevMat->mDown = new MatrixNode<NumericType>(value, row, col, prevMat, currMat, nullptr, nullptr);
-		}
-	}
-
-	//Now currMat points to the node we inserted, and the left and right pointers may need adjusted.
-	//So, we must now traverse down the row headers and adjust the currMat's left and right pointers,
-	//as well as neighboring pointers.    */
-
 }
 
 
@@ -303,7 +223,7 @@ void SparseMatrix<NumericType>::remove(int row, int col)
 
 
 	HeaderNode<NumericType>* header1,* header2,* prev,* curr;
-	MatrixNode<NumericType>/** prevMat,*/* currMat;
+	MatrixNode<NumericType>* currMat;
 
 	header1 = findHeader(mRows, row);
 
@@ -354,8 +274,7 @@ void SparseMatrix<NumericType>::remove(int row, int col)
 		}
 
 		if (currMat->mUp == nullptr && currMat->mDown == nullptr)		//only node in this column, delete header node too
-		{
-			//header = findHeader(mCols, col);
+		{		
 
 			if (mCols->mIndex == col)		//this row was first header node in mCols
 			{
