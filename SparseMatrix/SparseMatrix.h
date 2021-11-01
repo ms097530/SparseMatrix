@@ -46,7 +46,7 @@ class SparseMatrix
 template <typename NumericType>
 SparseMatrix<NumericType>::SparseMatrix(int rows, int cols) : numRows(rows), numCols(cols) , mRows(nullptr), mCols(nullptr)
 {
-	//numRows = rows; numCols = cols; mRows = nullptr; mCols = nullptr;
+	
 }
 
 template <typename NumericType>
@@ -217,6 +217,7 @@ void SparseMatrix<NumericType>::insert(int row, int col, NumericType value)
 
 template <typename NumericType>
 void SparseMatrix<NumericType>::remove(int row, int col)
+// input: zero-indexed row and column to remove value from
 {
 	if (row >= numRows || row < 0 || col >= numCols || col < 0)		//check for invalid input
 		throw std::out_of_range("Out of bounds of matrix - removal.");
