@@ -15,7 +15,9 @@ class HeaderNode
 		friend class SparseMatrix<T>;
 	private:
 		int mIndex;
+		// points to following header node in parent matrix
 		HeaderNode<T>* mNext;
+		// points to first matrix node in doubly linked list of matrix nodes
 		MatrixNode<T>* mNode;
 };
 
