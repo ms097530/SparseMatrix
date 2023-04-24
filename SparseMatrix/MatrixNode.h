@@ -13,32 +13,29 @@ class MatrixNode
 		MatrixNode(T val, int row, int col, MatrixNode<T>* up, MatrixNode<T>* down,
 			MatrixNode<T>* left, MatrixNode<T>* right);
 		~MatrixNode();
-		//MatrixNode(const MatrixNode<T>& other);
-
+		// allow SparseMatrix to manipulate internals of objects of this class
 		friend class SparseMatrix<T>;
 	private:
+		// data value stored in node
 		T mVal;
+		// mRow and mCol allow node to be aware of its own position
 		int mRow;
 		int mCol;
+		// each node will be connected all adjacent nodes through these pointers
 		MatrixNode<T>* mUp,* mDown,* mLeft,* mRight;
 };
 
-
+// use provided values to set internal data appropriately
 template <typename T>
 MatrixNode<T>::MatrixNode(T val, int row, int col, MatrixNode<T>* up, MatrixNode<T>* down,
 	MatrixNode<T>* left, MatrixNode<T>* right) : mVal(val), mRow(row), mCol(col),
 	mUp(up), mDown(down), mLeft(left), mRight(right)
 { }
 
+// node pointers are nullptr by default
 template <typename T>
 MatrixNode<T>::~MatrixNode()
 {
 	mUp = mDown = mLeft = mRight = nullptr;
 }
 
-/*template <typename T>
-MatrixNode<T>::MatrixNode(const MatrixNode<T>& other) : mVal(other.mVal), mRow(other.mRow), mCol(other.mCol),
-	mUp(new MatrixNode<T>())
-{
-	
-}*/
