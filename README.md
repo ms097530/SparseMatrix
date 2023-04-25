@@ -1,5 +1,6 @@
 # SparseMatrix
 Sparse matrix implementation used as a learning exercise while studying data structures and algorithms. Built using C++.
+
 ![Sparse matrix graphic](./sparse_matrix_graphic.png)
 
 ## Use case
